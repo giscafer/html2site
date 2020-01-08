@@ -9,7 +9,9 @@ fork modified from [markdown-folder-to-html](https://github.com/joakin/markdown-
 - npm install
 - npm run start
 
-将需要转为静态网站页面的html文件夹复制到 `docs` 目录下即可。
+- 将需要转为静态网站页面的html文件夹复制到 `docs` 目录下即可。
+
+- 执行完毕后，打开 `_docs/index.html` 即可预览网站
 
 
 
