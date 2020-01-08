@@ -1,1 +1,1 @@
-export default /\.md$/;
+export default /\.html$/;

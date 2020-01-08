@@ -1,4 +1,6 @@
-# markdown-folder-to-html
+# folder-htmlfile-to-sitepage
+
+fork modified from [markdown-folder-to-html](https://github.com/joakin/markdown-folder-to-html)
 
 Simplest zero-config way to generate html docs from markdown files.
 

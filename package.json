@@ -7,7 +7,7 @@
     "markdown-folder-to-html": "./cli.js"
   },
   "scripts": {
-    "start": "npm run compile && node cli.js",
+    "start": "npm run compile && node -max_old_space_size=8096 cli.js",
     "compile": "tsc",
     "build": "cp README.md docs/index.md && npm start",
     "deploy": "npm run build && gh-pages -d _docs",

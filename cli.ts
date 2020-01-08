@@ -13,6 +13,7 @@ import generateIndexInfo from "./lib/generate-index-info";
 import page from "./lib/render-page";
 import mdR from "./lib/markdown-regex";
 import { FileTree, StringFile } from "./lib/types";
+import htmlUrl from "./lib/html-url-to-html";
 
 const [docsFolder, ...argsRest] = process.argv.slice(2);
 
@@ -64,11 +65,16 @@ const mds = all
   .sort(sortByPreferences.bind(null, preferences))
   .map(file => {
     const content = sh.cat(file).toString(); // The result is a weird not-string
+    let mdurl = mdUrl(file);
+    const idx = mdurl.lastIndexOf('/');
+    const filename = mdurl.substring(idx);
+    console.log(filename)
     return {
-      path: file,
-      url: mdUrl(file),
+      path: htmlUrl(file),
+      url: htmlUrl(file),
       content,
-      html: md2html(content)
+      html: `<iframe src="./${filename}" style="height:95vh;width:85vw;border:none"></iframe>`
+      // html: md2html(content)
     };
   });
 
@@ -89,7 +95,8 @@ const contentsJSON = {
 };
 fs.writeFileSync(contentsFilename, JSON.stringify(contentsJSON, null, 2));
 
-sh.rm("-r", "**/*.md");
+sh.cp('-r', './template-g.html', 'index.html')
+// sh.rm("-r", "**/*.md");
 
 function usage(error: boolean) {
   console.log(
