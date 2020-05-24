@@ -11,7 +11,11 @@
     License ....... Creative Commmons Attribution 3.0
     License URL ... https://github.com/typeplate/starter-kit/blob/master/license.txt
     */
-
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
       h1,
       h2,
       h3,
@@ -152,9 +156,9 @@
       /* FROM http://purecss.io/layouts/side-menu/  adapted to remove pure classes*/
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-          "Segoe UI Symbol";
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Symbol';
         color: #444;
       }
 
@@ -230,11 +234,11 @@
 
       #layout.active #menu {
         left: 250px;
-        width: 250px;
+        width: 350px;
       }
 
       #layout.active .menu-link {
-        left: 250px;
+        left: 304px;
       }
 
       /* The content `<div>` is where all your content goes. */
@@ -266,7 +270,9 @@
         -webkit-overflow-scrolling: touch;
         font-size: 0.9em;
       }
-
+      #menu.active {
+        display: block;
+      }
       a,
       a * {
         text-decoration: none;
@@ -298,7 +304,7 @@
       #menu ul ul {
         margin-top: 0.5em;
         margin-left: 0.5em;
-        border-left: 4px solid rgba(255, 255, 255, 0.5);
+        /* border-left: 4px solid rgba(255, 255, 255, 0.5); */
       }
 
       /* Change color of the anchor links on hover/focus. */
@@ -358,10 +364,12 @@
         height: auto;
         padding: 1.6em 1.2em;
         border-radius: 0 2px 2px 0;
+        background: #fa8919;
+        z-index: 1111 !important;
       }
 
       .menu-link:hover {
-        background: #f4f4f4;
+        /* background: #f4f4f4; */
       }
 
       .menu-link span {
@@ -382,7 +390,7 @@
       .menu-link span:after {
         position: absolute;
         margin-top: -0.6em;
-        content: " ";
+        content: ' ';
       }
 
       .menu-link span:after {
@@ -390,7 +398,9 @@
       }
 
       /* Hides the menu at `48em`, but modify this based on your app's needs. */
-
+      #menu.active {
+        display: block;
+      }
       @media (min-width: 48em) {
         .header,
         .content {
@@ -414,7 +424,7 @@
         }
 
         #layout.active .menu-link {
-          left: 250px;
+          left: 350px;
         }
       }
 
@@ -427,6 +437,17 @@
         #layout.active {
           position: relative;
           left: 250px;
+        }
+        #menu {
+          display: none;
+        }
+        .article-iframe {
+          width: 100vw !important;
+        }
+        .content {
+        }
+        .iconfont {
+          display: none;
         }
       }
 
@@ -481,9 +502,9 @@
     <script>
       // FROM http://purecss.io/js/ui.js
       (function(window, document) {
-        var layout = document.getElementById("layout"),
-          menu = document.getElementById("menu"),
-          menuLink = document.getElementById("menuLink");
+        var layout = document.getElementById('layout'),
+          menu = document.getElementById('menu'),
+          menuLink = document.getElementById('menuLink');
 
         function toggleClass(element, className) {
           var classes = element.className.split(/\s+/),
@@ -501,11 +522,11 @@
             classes.push(className);
           }
 
-          element.className = classes.join(" ");
+          element.className = classes.join(' ');
         }
 
         menuLink.onclick = function(e) {
-          var active = "active";
+          var active = 'active';
 
           e.preventDefault();
           toggleClass(layout, active);

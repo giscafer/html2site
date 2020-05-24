@@ -1,34 +1,34 @@
 #! /usr/bin/env node
 
-import fs from "fs";
-import path from "path";
-import sh from "shelljs";
+import fs from 'fs';
+import path from 'path';
+import sh from 'shelljs';
 
-import groupByPath from "./lib/group-by-path";
-import sortByPreferences from "./lib/sort-by-preferences";
-import mdUrl from "./lib/markdown-url-to-html";
-import md2html from "./lib/markdown-to-html";
-import renderNav from "./lib/render-nav";
-import generateIndexInfo from "./lib/generate-index-info";
-import page from "./lib/render-page";
-import mdR from "./lib/markdown-regex";
-import { FileTree, StringFile } from "./lib/types";
-import htmlUrl from "./lib/html-url-to-html";
+import groupByPath from './lib/group-by-path';
+import sortByPreferences from './lib/sort-by-preferences';
+import mdUrl from './lib/markdown-url-to-html';
+import md2html from './lib/markdown-to-html';
+import renderNav from './lib/render-nav';
+import generateIndexInfo from './lib/generate-index-info';
+import page from './lib/render-page';
+import mdR from './lib/markdown-regex';
+import { FileTree, StringFile } from './lib/types';
+import htmlUrl from './lib/html-url-to-html';
 
 const [docsFolder, ...argsRest] = process.argv.slice(2);
 
 // Default parameters
-const defaultFolder = "docs";
+const defaultFolder = 'docs';
 const folder = path.resolve(docsFolder || defaultFolder);
-const output = path.resolve(folder, "..", `_${path.basename(folder)}`);
-const templateFilename = "template.html";
-const contentsFilename = "contents.json";
-const preferences = ["index.md", "README.md"];
+const output = path.resolve(folder, '..', `_${path.basename(folder)}`);
+const templateFilename = 'template.html';
+const contentsFilename = 'contents.json';
+const preferences = ['index.md', 'README.md'];
 
 // Guards
 // Bail out if more than 1 args
 if (argsRest && argsRest.length > 0) {
-  console.error("Too may arguments");
+  console.error('Too may arguments');
   usage(true);
 }
 
@@ -43,12 +43,13 @@ let template = path.join(folder, templateFilename);
 if (!fs.existsSync(template)) {
   template = path.join(__dirname, defaultFolder, templateFilename);
 }
-const tpl = fs.readFileSync(template, "utf8");
+const tpl = fs.readFileSync(template, 'utf8');
 
 // Prepare output folder (create, clean, copy sources)
 fs.mkdirSync(output, { recursive: true });
-sh.rm("-rf", path.join(output, "*"));
-sh.cp("-R", path.join(folder, "*"), output);
+sh.rm('-rf', path.join(output, '*'));
+// sh.rm('-rf', path.join(folder, '**/*.mp3'));
+sh.cp('-R', path.join(folder, '**/*.html'), output);
 
 // Start processing. Outline:
 //
@@ -58,22 +59,23 @@ sh.cp("-R", path.join(folder, "*"), output);
 // 4. Parse files and generate output html files
 
 sh.cd(output);
-const all = sh.find("*");
+const all = sh.find('*');
 
 const mds = all
-  .filter(file => file.match(mdR))
+  .filter((file) => file.match(mdR))
   .sort(sortByPreferences.bind(null, preferences))
-  .map(file => {
+  .map((file) => {
     const content = sh.cat(file).toString(); // The result is a weird not-string
     let mdurl = mdUrl(file);
     const idx = mdurl.lastIndexOf('/');
     const filename = mdurl.substring(idx);
-    console.log(filename)
+
+    console.log(filename);
     return {
       path: htmlUrl(file),
       url: htmlUrl(file),
       content,
-      html: `<iframe src="./${filename}" style="height:95vh;width:85vw;border:none"></iframe>`
+      html: `<iframe src="./${filename}" style="height:99vh;width:85vw;border:none" class="article-iframe"></iframe>`,
       // html: md2html(content)
     };
   });
@@ -91,11 +93,11 @@ mds.forEach(({ path, url, html }) => {
 
 const contentsJSON = {
   paths: groupedMds,
-  contents: mds.map((md, i) => ({ ...md, id: i }))
+  contents: mds.map((md, i) => ({ ...md, id: i })),
 };
 fs.writeFileSync(contentsFilename, JSON.stringify(contentsJSON, null, 2));
 
-sh.cp('-r', './template-g.html', 'index.html')
+sh.cp('-r', './templateg.html', 'index.html');
 // sh.rm("-r", "**/*.md");
 
 function usage(error: boolean) {
