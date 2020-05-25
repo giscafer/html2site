@@ -48,8 +48,10 @@ const tpl = fs.readFileSync(template, 'utf8');
 // Prepare output folder (create, clean, copy sources)
 fs.mkdirSync(output, { recursive: true });
 sh.rm('-rf', path.join(output, '*'));
-// sh.rm('-rf', path.join(folder, '**/*.mp3'));
-sh.cp('-R', path.join(folder, '**/*.html'), output);
+// sh.cp('-R', path.join(folder, '**/*.html'), output); // 生成无目录
+sh.cp('-R', path.join(folder, '*'), output);
+sh.rm('-rf', path.join(output, '**/*.mp3'));
+sh.rm('-rf', path.join(output, '**/*.pdf'));
 
 // Start processing. Outline:
 //
