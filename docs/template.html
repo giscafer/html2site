@@ -571,11 +571,13 @@
           toggleClass(menu, 'collapse');
           toggleClass(menuLink, 'collapse');
           if (
-            document.querySelector('.layout').className.indexOf('collapse') !==
+            document.querySelector('#layout').className.indexOf('collapse') !==
             -1
           ) {
+            document.querySelector('#main').style.maxWidth = '100%';
             document.querySelector('iframe').style.width = '100%';
           } else {
+            document.querySelector('#main').style.maxWidth = '80ex';
             document.querySelector('iframe').style.width = '85vw';
           }
         };
