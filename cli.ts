@@ -51,6 +51,7 @@ sh.rm('-rf', path.join(output, '*'));
 // sh.cp('-R', path.join(folder, '**/*.html'), output); // 生成无目录
 sh.cp('-R', path.join(folder, '*'), output);
 sh.rm('-rf', path.join(output, '**/*.mp3'));
+sh.rm('-rf', path.join(output, '**/*.m4a'));
 sh.rm('-rf', path.join(output, '**/*.pdf'));
 
 // Start processing. Outline:
