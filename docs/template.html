@@ -279,12 +279,12 @@
       a,
       a * {
         text-decoration: none;
-        color: #2483cc;
+        color: #4c4c4c;
       }
 
       a:visited {
         text-decoration: none;
-        color: #2483cc;
+        color: #4c4c4c;
       }
 
       /* All anchors inside the menu should be styled like this. */
@@ -444,6 +444,9 @@
         #menu.collapse {
           display: none;
         }
+        #layout.collapse {
+          padding-left: 0;
+        }
         .menu-link {
           position: fixed;
           left: 336px;
@@ -564,8 +567,17 @@
           toggleClass(layout, active);
           toggleClass(menu, active);
           toggleClass(menuLink, active);
+          toggleClass(layout, 'collapse');
           toggleClass(menu, 'collapse');
           toggleClass(menuLink, 'collapse');
+          if (
+            document.querySelector('.layout').className.indexOf('collapse') !==
+            -1
+          ) {
+            document.querySelector('iframe').style.width = '100%';
+          } else {
+            document.querySelector('iframe').style.width = '85vw';
+          }
         };
 
         document.querySelectorAll('#menu .heading').forEach((item) => {
