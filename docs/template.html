@@ -276,16 +276,6 @@
       #menu.collapse {
         display: none;
       }
-      a,
-      a * {
-        text-decoration: none;
-        color: #4c4c4c;
-      }
-
-      a:visited {
-        text-decoration: none;
-        color: #4c4c4c;
-      }
 
       /* All anchors inside the menu should be styled like this. */
 
@@ -301,6 +291,17 @@
 
       #menu a:first-letter {
         text-transform: capitalize;
+      }
+
+      #menu a,
+      #menu a * {
+        text-decoration: none;
+        color: #4c4c4c;
+      }
+
+      #menu a:visited {
+        text-decoration: none;
+        color: #4c4c4c;
       }
 
       #menu ul {
@@ -520,11 +521,7 @@
   <body>
     <div id="layout">
       <!-- Menu toggle -->
-      <a href="#menu" id="menuLink" class="menu-link">
-        <!-- Hamburger icon -->
-        <span></span>
-      </a>
-      <div id="menu">
+      <div>
         <!--NAV-->
       </div>
       <article id="main" class="content">
@@ -538,8 +535,7 @@
       // FROM http://purecss.io/js/ui.js
       (function(window, document) {
         var layout = document.getElementById('layout'),
-          menu = document.getElementById('menu'),
-          menuLink = document.getElementById('menuLink');
+          menu = document.getElementById('menu');
 
         function toggleClass(element, className) {
           var classes = element.className.split(/\s+/),
@@ -560,9 +556,40 @@
           element.className = classes.join(' ');
         }
 
+        document.querySelectorAll('#menu .heading').forEach((item) => {
+          item.addEventListener('click', function(e) {
+            // console.log(e.target);
+            var el = e.currentTarget.nextElementSibling;
+            var className = el.className;
+
+            var collapse = className.indexOf('collapse') !== -1;
+            if (!collapse) {
+              el.className = className + ' collapse';
+            } else {
+              el.className = el.className.replace('collapse', ' ');
+            }
+          });
+        });
+        var aList = document.querySelectorAll('a.filename');
+        document.querySelectorAll('ul.menu-item').forEach((item) => {
+          item.addEventListener('click', function(e) {
+            e.preventDefault();
+            aList.forEach(
+              (a) => (a.className = a.className.replace('active', ''))
+            );
+            var el = e.target;
+            toggleClass(el, 'active');
+            var filename = el.getAttribute('data-filename');
+            if (filename) {
+              document.querySelector('.article-iframe').src = './' + filename;
+            }
+          });
+        });
+
+        var menuLink = document.getElementById('menuLink');
         menuLink.onclick = function(e) {
           var active = 'active';
-
+          console.log(11);
           e.preventDefault();
           toggleClass(layout, active);
           toggleClass(menu, active);
@@ -581,22 +608,6 @@
             document.querySelector('iframe').style.width = '85vw';
           }
         };
-
-        document.querySelectorAll('#menu .heading').forEach((item) => {
-          item.addEventListener('click', function(e) {
-            // console.log(e.target);
-            var el = e.currentTarget.nextElementSibling;
-            var className = el.className;
-
-            console.log(el, el.className);
-            var collapse = className.indexOf('collapse') !== -1;
-            if (!collapse) {
-              el.className = className + ' collapse';
-            } else {
-              el.className = el.className.replace('collapse', ' ');
-            }
-          });
-        });
       })(this, this.document);
     </script>
   </body>

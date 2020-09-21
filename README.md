@@ -1,4 +1,4 @@
-# html2site
+# [html2site](https://github.com/giscafer/html2site)
 
 Fork modified from [markdown-folder-to-html](https://github.com/joakin/markdown-folder-to-html)
 
