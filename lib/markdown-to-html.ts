@@ -1,18 +1,18 @@
-import url from "url";
-import markdownIt from "markdown-it";
-import markdownItAnchor from "markdown-it-anchor";
-import mdUrl from "./markdown-url-to-html";
+import url from 'url';
+import markdownIt from 'markdown-it';
+import markdownItAnchor from 'markdown-it-anchor';
+import mdUrl from './markdown-url-to-html';
 
 const markdown = markdownIt({
   html: true,
   linkify: true,
-  typographer: true
+  typographer: true,
 })
   .use(transformLocalMdLinksToHTML)
-  .use(markdownItAnchor, {
+  .use(markdownItAnchor as any, {
     permalink: true,
-    permalinkClass: "heading-anchor-permalink",
-    permalinkSymbol: "#"
+    permalinkClass: 'heading-anchor-permalink',
+    permalinkSymbol: '#',
   });
 
 function transformLocalMdLinksToHTML(md: any) {
@@ -26,12 +26,12 @@ function transformLocalMdLinksToHTML(md: any) {
     idx: any,
     options: any,
     env: any,
-    self: any
+    self: any,
   ) {
     const a = tokens[idx];
-    const href = a.attrGet("href");
+    const href = a.attrGet('href');
     if (href) {
-      a.attrSet("href", localMarkdownLinkToHtmlLink(href));
+      a.attrSet('href', localMarkdownLinkToHtmlLink(href));
     }
     return defaultLinkOpenRender(tokens, idx, options, env, self);
   };

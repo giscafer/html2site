@@ -1,10 +1,10 @@
 {
-  "name": "markdown-folder-to-html",
+  "name": "html2site",
   "version": "2.3.0",
   "description": "Convert a folder with files and markdown documents to an HTML site",
   "main": "cli.js",
   "bin": {
-    "markdown-folder-to-html": "./cli.js"
+    "html2site": "./cli.js"
   },
   "scripts": {
     "start": "npm run compile && node -max_old_space_size=8096 cli.js",
@@ -14,11 +14,11 @@
     "prepare-to-publish": "npm run test && npm run deploy",
     "format": "prettier --write '{lib,test}/**/*.ts' ./cli.ts",
     "test": "npm run compile && tape test/*.js | tap-dot",
-    "docs": "markdown-folder-to-html"
+    "docs": "html2site"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joakin/markdown-folder-to-html.git"
+    "url": "git+https://github.com/giscafer/html2site.git"
   },
   "keywords": [
     "markdown",
@@ -30,12 +30,11 @@
     "cli",
     "simple"
   ],
-  "author": "Joaquin Oltra <joaquin@chimeces.com> (http://chimeces.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/joakin/markdown-folder-to-html/issues"
+    "url": "https://github.com/giscafer/html2site/issues"
   },
-  "homepage": "https://github.com/joakin/markdown-folder-to-html#readme",
+  "homepage": "https://github.com/giscafer/html2site#readme",
   "dependencies": {
     "markdown-it": "^8.4.2",
     "markdown-it-anchor": "^5.2.4",
